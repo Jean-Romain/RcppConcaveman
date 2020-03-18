@@ -23,35 +23,25 @@
 
 #include "rtree.h"
 
-//#define DEBUG // uncomment to dump debug info to screen
-//#define DEBUG_2 // uncomment to dump second-level debug info to screen
-
-template<class T> class compare_first {
+template<class T> class compare_first
+{
 public:
-    bool operator()(const T &a, const T &b) {
+    bool operator()(const T &a, const T &b)
+    {
         return (std::get<0>(a) < std::get<0>(b));
     }
 };
 
-template<class T> T orient2d(
-    const std::array<T, 2> &p1,
-    const std::array<T, 2> &p2,
-    const std::array<T, 2> &p3) {
-
-    T res = (p2[1] - p1[1]) * (p3[0] - p2[0]) -
-        (p2[0] - p1[0]) * (p3[1] - p2[1]);
-
+template<class T> T orient2d(const std::array<T, 2> &p1, const std::array<T, 2> &p2, const std::array<T, 2> &p3)
+{
+    T res = (p2[1] - p1[1]) * (p3[0] - p2[0]) - (p2[0] - p1[0]) * (p3[1] - p2[1]);
     return res;
 }
 
 
 // check if the edges (p1,q1) and (p2,q2) intersect
-template<class T> bool intersects(
-    const std::array<T, 2> &p1,
-    const std::array<T, 2> &q1,
-    const std::array<T, 2> &p2,
-    const std::array<T, 2> &q2) {
-
+template<class T> bool intersects(const std::array<T, 2> &p1, const std::array<T, 2> &q1, const std::array<T, 2> &p2, const std::array<T, 2> &q2)
+{
     auto res = (p1[0] != q2[0] || p1[1] != q2[1]) &&
         (q1[0] != p2[0] || q1[1] != p2[1]) &&
         (orient2d(p1, q1, p2) > 0) != (orient2d(p1, q1, q2) > 0) &&
@@ -62,32 +52,31 @@ template<class T> bool intersects(
 
 
 // square distance between 2 points
-template<class T> T getSqDist(
-    const std::array<T, 2> &p1,
-    const std::array<T, 2> &p2) {
-
+template<class T> T getSqDist(const std::array<T, 2> &p1, const std::array<T, 2> &p2)
+{
     auto dx = p1[0] - p2[0];
     auto dy = p1[1] - p2[1];
     return dx * dx + dy * dy;
 }
 
 // square distance from a point to a segment
-template<class T> T sqSegDist(
-    const std::array<T, 2> &p,
-    const std::array<T, 2> &p1,
-    const std::array<T, 2> &p2) {
-
+template<class T> T sqSegDist(const std::array<T, 2> &p, const std::array<T, 2> &p1, const std::array<T, 2> &p2)
+{
     auto x = p1[0];
     auto y = p1[1];
     auto dx = p2[0] - x;
     auto dy = p2[1] - y;
 
-    if (dx != 0 || dy != 0) {
+    if (dx != 0 || dy != 0)
+    {
         auto t = ((p[0] - x) * dx + (p[1] - y) * dy) / (dx * dx + dy * dy);
-        if (t > 1) {
+        if (t > 1)
+        {
             x = p2[0];
             y = p2[1];
-        } else if (t > 0) {
+        }
+        else if (t > 0)
+        {
             x += dx * t;
             y += dy * t;
         }
@@ -101,10 +90,8 @@ template<class T> T sqSegDist(
 
 
 // segment to segment distance, ported from http://geomalgorithms.com/a07-_distance.html by Dan Sunday
-template<class T> T sqSegSegDist(T x0, T y0,
-    T x1, T y1,
-    T x2, T y2,
-    T x3, T y3) {
+template<class T> T sqSegSegDist(T x0, T y0, T x1, T y1, T x2, T y2, T x3, T y3)
+{
     auto ux = x1 - x0;
     auto uy = y1 - y0;
     auto vx = x3 - x2;
@@ -122,38 +109,53 @@ template<class T> T sqSegSegDist(T x0, T y0,
     auto sD = D;
     auto tD = D;
 
-    if (D == 0) {
+    if (D == 0)
+    {
         sN = 0;
         sD = 1;
         tN = e;
         tD = c;
-    } else {
+    }
+    else
+    {
         sN = b * e - c * d;
         tN = a * e - b * d;
-        if (sN < 0) {
+        if (sN < 0)
+        {
             sN = 0;
             tN = e;
             tD = c;
-        } else if (sN > sD) {
+        }
+        else if (sN > sD)
+        {
             sN = sD;
             tN = e + b;
             tD = c;
         }
     }
 
-    if (tN < 0) {
+    if (tN < 0)
+    {
         tN = 0;
-        if (-d < 0) sN = 0;
-        else if (-d > a) sN = sD;
-        else {
+        if (-d < 0)
+            sN = 0;
+        else if (-d > a)
+            sN = sD;
+        else
+        {
             sN = -d;
             sD = a;
         }
-    } else if (tN > tD) {
+    }
+    else if (tN > tD)
+    {
         tN = tD;
-        if (-d + b < 0) sN = 0;
-        else if (-d + b > a) sN = sD;
-        else {
+        if (-d + b < 0)
+            sN = 0;
+        else if (-d + b > a)
+            sN = sD;
+        else
+        {
             sN = -d + b;
             sD = a;
         }
@@ -172,7 +174,8 @@ template<class T> T sqSegSegDist(T x0, T y0,
     return dx * dx + dy * dy;
 }
 
-template<class T> struct Node {
+template<class T> struct Node
+{
     typedef Node<T> type;
     typedef type *type_ptr;
     typedef std::array<T, 2> point_type;
@@ -196,22 +199,24 @@ template<class T> struct Node {
 
 template <class T> class CircularList;
 
-
-template<class T> class CircularElement {
+template<class T> class CircularElement
+{
 public:
     typedef CircularElement<T> type;
     typedef type *ptr_type;
 
-    template<class... Args> CircularElement<T>(Args&&... args):
-    m_data(std::forward<Args>(args)...) {
+    template<class... Args> CircularElement<T>(Args&&... args): m_data(std::forward<Args>(args)...)
+    {
 
     }
 
-    T& data() {
+    T& data()
+    {
         return m_data;
     }
 
-    template<class... Args> CircularElement<T>* insert(Args&&... args) {
+    template<class... Args> CircularElement<T>* insert(Args&&... args)
+    {
         auto elem = new CircularElement<T>(std::forward<Args>(args)...);
         elem->m_prev = this;
         elem->m_next = m_next;
@@ -220,11 +225,13 @@ public:
         return elem;
     }
 
-    CircularElement<T>* prev() {
+    CircularElement<T>* prev()
+    {
         return m_prev;
     }
 
-    CircularElement<T>* next() {
+    CircularElement<T>* next()
+    {
         return m_next;
     }
 
@@ -237,23 +244,21 @@ private:
 };
 
 
-template<class T> class CircularList {
+template<class T> class CircularList
+{
 public:
     typedef CircularElement<T> element_type;
 
-    CircularList(): m_last(nullptr) {
+    CircularList(): m_last(nullptr)
+    {
 
     }
 
-    ~CircularList() {
-#ifdef DEBUG
-        std::cout << "~CircularList()" << std::endl;
-#endif
+    ~CircularList()
+    {
         auto node = m_last;
-        while (true) {
-#ifdef DEBUG
-//             std::cout << (i++) << std::endl;
-#endif
+        while (true)
+        {
             auto tmp = node;
             node = node->m_next;
             delete tmp;
@@ -262,15 +267,19 @@ public:
         }
     }
 
-    template<class... Args> CircularElement<T>* insert(element_type *prev, Args&&... args) {
+    template<class... Args> CircularElement<T>* insert(element_type *prev, Args&&... args)
+    {
         auto elem = new CircularElement<T>(std::forward<Args>(args)...);
 
         if (prev == nullptr && m_last != nullptr)
             throw std::runtime_error("Once the list is non-empty you must specify where to insert");
 
-        if (prev == nullptr) {
+        if (prev == nullptr)
+        {
             elem->m_prev = elem->m_next = elem;
-        } else {
+        }
+        else
+        {
             elem->m_prev = prev;
             elem->m_next = prev->m_next;
             prev->m_next->m_prev = elem;
@@ -289,7 +298,8 @@ private:
 
 
 // update the bounding box of a node's edge
-template<class T> void updateBBox(typename CircularElement<T>::ptr_type elem) {
+template<class T> void updateBBox(typename CircularElement<T>::ptr_type elem)
+{
     auto &node(elem->data());
     auto p1 = node.p;
     auto p2 = elem->next()->data().p;
@@ -427,18 +437,14 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
     const std::array<T, 2> &d,
     T maxDist,
     const rtree<T, 2, MAX_CHILDREN, typename CircularElement<Node<T>>::ptr_type> &segTree,
-    bool &ok) {
-
+    bool &ok)
+{
     typedef std::array<T, 2> point_type;
     typedef CircularElement<Node<T>> circ_elem_type;
     typedef rtree<T, 2, MAX_CHILDREN, std::array<T, 2>> tree_type;
     typedef const tree_type const_tree_type;
     typedef std::reference_wrapper<const_tree_type> tree_ref_type;
     typedef std::tuple<T, tree_ref_type> tuple_type;
-
-#ifdef DEBUG
-    std::cout << "findCandidate(), maxDist: " << maxDist << std::endl;
-#endif
 
     ok = false;
 
@@ -447,9 +453,10 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
 
     // search through the point R-tree with a depth-first search using a priority queue
     // in the order of distance to the edge (b, c)
-    while (true) {
-        for (auto &child : node.get().children()) {
-
+    while (true)
+    {
+        for (auto &child : node.get().children())
+        {
             auto bounds = child->bounds();
             point_type pt = { bounds[0], bounds[1] };
 
@@ -460,7 +467,8 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
             queue.push(tuple_type(-dist, *child));
         }
 
-        while (!queue.empty() && std::get<1>(queue.top()).get().is_leaf()) {
+        while (!queue.empty() && std::get<1>(queue.top()).get().is_leaf())
+        {
             auto item = queue.top();
             queue.pop();
 
@@ -472,27 +480,14 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
             auto d0 = sqSegDist(p, a, b);
             auto d1 = sqSegDist(p, c, d);
 
-#ifdef DEBUG_2
-            printf ("    p: %0.6f %0.6f sqSegDist: %e, %e, %e \n", bounds[0], bounds[1], d0, std::get<0>(item), d1);
-#endif
-
             if (-std::get<0>(item) < d0 && -std::get<0>(item) < d1 &&
                 noIntersections(b, p, segTree) &&
-                noIntersections(c, p, segTree)) {
+                noIntersections(c, p, segTree))
+            {
 
                 ok = true;
                 return std::get<1>(item).get().data();
             }
-
-#ifdef DEBUG_2
-            else {
-                bool cond1 = -std::get<0>(item) < d0;
-                bool cond2 = -std::get<0>(item) < d1;
-                bool cond3 = noIntersections(b, p, segTree);
-                bool cond4 = noIntersections(c, p, segTree);
-                std::cout << "Not OK: " << cond1 << " " << cond2 << " " << cond3 << " " << cond4 << std::endl;
-            }
-#endif
          }
 
         if (queue.empty())
@@ -510,7 +505,8 @@ template<class T, int MAX_CHILDREN> std::array<T, 2> findCandidate(
 template<class T, int MAX_CHILDREN, class USER_DATA> T sqSegBoxDist(
     const std::array<T, 2> &a,
     const std::array<T, 2> &b,
-    const rtree<T, 2, MAX_CHILDREN, USER_DATA> &bbox) {
+    const rtree<T, 2, MAX_CHILDREN, USER_DATA> &bbox)
+{
 
     if (inside(a, bbox) || inside(b, bbox))
         return 0;
@@ -539,7 +535,8 @@ template<class T, int MAX_CHILDREN, class USER_DATA> T sqSegBoxDist(
 
 template<class T, int MAX_CHILDREN, class USER_DATA> bool inside(
     const std::array<T, 2> &a,
-    const rtree<T, 2, MAX_CHILDREN, USER_DATA> &bbox) {
+    const rtree<T, 2, MAX_CHILDREN, USER_DATA> &bbox)
+{
 
     auto &bounds = bbox.bounds();
 
@@ -560,7 +557,8 @@ template<class T, int MAX_CHILDREN, class USER_DATA> bool inside(
 template<class T, int MAX_CHILDREN> bool noIntersections(
     const std::array<T, 2> &a,
     const std::array<T, 2> &b,
-    const rtree<T, 2, MAX_CHILDREN, typename CircularElement<Node<T>>::ptr_type> &segTree) {
+    const rtree<T, 2, MAX_CHILDREN, typename CircularElement<Node<T>>::ptr_type> &segTree)
+{
 
     auto minX = std::min(a[0], b[0]);
     auto minY = std::min(a[1], b[1]);
@@ -569,7 +567,8 @@ template<class T, int MAX_CHILDREN> bool noIntersections(
 
     auto isect = segTree.intersection({ minX, minY, maxX, maxY });
 
-    for (decltype(segTree) &ch : isect) {
+    for (decltype(segTree) &ch : isect)
+    {
         auto elem = ch.data();
 
         if (intersects(elem->data().p, elem->next()->data().p, a, b))
