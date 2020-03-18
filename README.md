@@ -57,16 +57,16 @@ microbenchmark::microbenchmark(
 
 ```
 Unit: milliseconds
-  expr      min       lq     mean   median       uq      max neval
-   cpp 61.70749 61.97916 63.68702 62.60480 63.22871 75.79339    20
-    js 48.82641 50.15727 59.98756 52.02225 67.56326 90.68871    20
+ expr      min       lq     mean   median       uq       max neval
+  cpp 38.67958 39.03918 40.48053 39.67789 41.39601  45.16725    20
+   js 43.91062 44.74566 57.17144 52.30814 59.67490 129.21173    20
 ```   
 
 #### 4000 points
 
 ```
 Unit: milliseconds
- expr      min        lq      mean    median        uq      max neval
-  cpp 109.2677 110.08687 115.35193 111.91904 120.02852 136.1379    20
-   js  67.1860  71.15402  80.85412  73.83894  87.01278 118.3171    20
+ expr      min       lq     mean   median       uq       max neval
+  cpp 84.22761 85.10211 92.06418 89.48945 94.90472 114.76492    20
+   js 57.45485 58.76846 66.08930 64.02365 69.80393  87.92922    20
 ```
