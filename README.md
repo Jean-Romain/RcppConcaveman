@@ -14,8 +14,6 @@ The `RcppConcaveman` package wraps the Stanislaw Adaszewski's C++ code and is a 
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(RcppConcaveman)
 data(points)
