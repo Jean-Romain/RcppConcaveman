@@ -18,7 +18,7 @@ DataFrame cpp_concaveman(NumericVector x, NumericVector y, double concavity, dou
 
   auto concave_points = concaveman<double, 16>(points, hull, concavity, lengthThreshold);
 
-  auto n = concave_points.size();
+  unsigned int n = concave_points.size();
   NumericVector xhull(n + 1);
   NumericVector yhull(n + 1);
 
