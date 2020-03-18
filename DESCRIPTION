@@ -1,0 +1,18 @@
+Package: RcppConcaveman
+Type: Package
+Title: A very fast 2D concave hull algorithm in C++
+Version: 1.0
+Date: 2020-03-18
+Authors@R: c(
+  person("Jean-Romain", "Roussel", email="jean-romain.roussel.1@ulaval.ca", role = c("cre", "aut")), 
+  person("Stanislaw", "Adaszewski", role = c("aut", "cph")))
+Description: The concaveman function is a C++ implementation of the 'concaveman' (<https://github.com/mapbox/concaveman>) 
+    algorithm from 'mapbox'. It is based on an original idea of Park and Oh (2012) (<http://www.iis.sinica.edu.tw/page/jise/2012/201205_10.pdf>).
+    It computes a concave polygon for a set of points.
+License: BSD_2_clause + file LICENSE
+Depends: R (>= 3.0.0)
+Imports: Rcpp (>= 1.0.3)
+LinkingTo: Rcpp
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Encoding: UTF-8

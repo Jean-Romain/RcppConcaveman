@@ -1,0 +1,11 @@
+inst/doc
+Meta
+doc
+.Rproj.user
+.Rhistory
+.RData
+*.o
+*.so
+*.dll
+*Rplots.pdf
+revdep

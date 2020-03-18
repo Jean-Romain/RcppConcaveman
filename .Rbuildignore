@@ -1,0 +1,16 @@
+^Meta$
+^doc$
+^.*\.Rproj$
+^\.Rproj\.user$
+^.*\.o$
+^LICENSE\.txt$
+^Contributing\.md$
+^laslib_cpp_to_Rcpp\.sh$
+^\.travis\.yml$
+^cran-comments\.md$
+^man-roxygen$
+^profiling$
+^others$
+^revdep$
+^man/figures$
+^codecov\.yml$
