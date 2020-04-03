@@ -35,6 +35,6 @@ plot(points, asp = 1)
 lines(hull, lwd = 3, col = "red")
 }
 \references{
-A New Concave Hull Algorithm and Concaveness Measure for n-dimensional Datasets, 2012
-by Jin-Seo Park and Se-Jong Oh. https://www.iis.sinica.edu.tw/page/jise/2012/201205_10.pdf
+Park, J.-S & Oh, S.-J. (2013). A New Concave Hull Algorithm and Concaveness Measure
+for n-dimensional Datasets. Journal of Information Science and Engineering. 29. 379-392.
 }

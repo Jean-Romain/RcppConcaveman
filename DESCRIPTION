@@ -8,7 +8,7 @@ Authors@R: c(
   person("Stanislaw", "Adaszewski", role = c("aut", "cph")))
 Description: The concaveman function is a C++ implementation of the 'concaveman' (<https://github.com/mapbox/concaveman>) 
     algorithm from 'mapbox'. It is based on an original idea of Park and Oh (2012) (<http://www.iis.sinica.edu.tw/page/jise/2012/201205_10.pdf>).
-    It computes a concave polygon for a set of points.
+    It computes a concave polygon for a set of points very efficiently.
 License: BSD_2_clause + file LICENSE
 Depends: R (>= 3.0.0)
 Imports: Rcpp (>= 1.0.3)

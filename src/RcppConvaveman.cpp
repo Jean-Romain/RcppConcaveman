@@ -22,7 +22,7 @@ DataFrame cpp_concaveman(NumericVector x, NumericVector y, double concavity, dou
   NumericVector xhull(n + 1);
   NumericVector yhull(n + 1);
 
-  for (auto i = 0; i < n; i++)
+  for (unsigned int i = 0; i < n; i++)
   {
     xhull[i] = concave_points[i][0];
     yhull[i] = concave_points[i][1];

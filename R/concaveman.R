@@ -18,8 +18,8 @@
 #' @param lengthThreshold numeric. when a segment length is under this threshold, it stops being
 #' considered for further detalization. Higher values result in simpler shapes.
 #'
-#' @references A New Concave Hull Algorithm and Concaveness Measure for n-dimensional Datasets, 2012
-#' by Jin-Seo Park and Se-Jong Oh. https://www.iis.sinica.edu.tw/page/jise/2012/201205_10.pdf
+#' @references Park, J.-S & Oh, S.-J. (2013). A New Concave Hull Algorithm and Concaveness Measure
+#' for n-dimensional Datasets. Journal of Information Science and Engineering. 29. 379-392.
 #' @export
 #' @examples
 #' data(points)
