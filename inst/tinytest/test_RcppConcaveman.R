@@ -1,10 +1,12 @@
 data(points)
 
+n = if (.Machine$sizeof.pointer == 4L) 284 else 200
+
 # It works ?
 pts = points
 hull <- concaveman(pts)
-expect_equal(dim(hull), c(200,2))
-expect_equivalent(hull[1,], hull[200,])
+expect_equal(dim(hull), c(n,2))
+expect_equivalent(hull[1,], hull[n,])
 
 # It works with 3 points
 pts = points[1:3,]
@@ -19,15 +21,15 @@ expect_error(concaveman(pts))
 # It works with data.frame
 pts = as.data.frame(points)
 hull <- concaveman(pts)
-expect_equal(dim(hull), c(200,2))
-expect_equivalent(hull[1,], hull[200,])
+expect_equal(dim(hull), c(n,2))
+expect_equivalent(hull[1,], hull[n,])
 
 # It works with vectors
 x = points[,1]
 y = points[,2]
 hull <- concaveman(x, y)
-expect_equal(dim(hull), c(200,2))
-expect_equivalent(hull[1,], hull[200,])
+expect_equal(dim(hull), c(n,2))
+expect_equivalent(hull[1,], hull[n,])
 
 # Large concavity result in convex hull
 hull <- concaveman(points, concavity = 1e8)
