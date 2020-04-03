@@ -1,14 +1,6 @@
 #' A very fast 2D concave hull algorithm
 #'
-#' The algorithm is based on ideas from Park and Oh (2012). A first implementation in JavaScript was
-#' proposed by Vladimir Agafonkin in \href{https://github.com/mapbox/concaveman}{mapbox}. This
-#' implementation dramatically improved performance over the one stated in the paper using a spatial
-#' index. The algorithm was then ported to R by Joël Gombin in the R package
-#' \href{https://github.com/joelgombin/concaveman}{concaveman} that runs the JavaScript implemetation
-#' proposed by Vladimir Agafonkin. Later a C++ version of Vladimir Agafonkin's JavaScript implementation
-#' was proposed by Stanislaw Adaszewski in \href{https://github.com/sadaszewski/concaveman-cpp}{concaveman-cpp}.
-#' The concaveman function in RcppConcaveman package wraps the Stanislaw Adaszewski's C++ code making
-#' the concaveman algorithm an order of magnitude (up to 50 times) faster than the Javascript version.
+#' The algorithm is based on ideas from Park and Oh (2012) (see references) and was first implement
 #'
 #' @param x,y coordinate vectors of points. This can be specified as two vectors x and y, a 2-column
 #' matrix x, a list x with two components, etc.
@@ -31,7 +23,7 @@ concaveman <- function(x, y = NULL, concavity = 2, lengthThreshold = 0) {
   stopifnot(is.numeric(concavity), is.numeric(lengthThreshold), length(concavity) == 1L, length(lengthThreshold) == 1L)
 
   if (is.null(y)) {
-    if (!is.matrix(x) && !is.data.frame(x) && !is.list(x)) stop("A matrix a list or a data.frame is expected.")
+    if (!is.matrix(x) && !is.data.frame(x)) stop("A matrix or a data.frame is expected.")
     if (dim(x)[2] != 2) stop("Two columns are expected.")
     if (is.matrix(x)) {
       y <- x[,2]
