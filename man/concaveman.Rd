@@ -18,7 +18,15 @@ shapes.}
 considered for further detalization. Higher values result in simpler shapes.}
 }
 \description{
-The algorithm is based on ideas from Park and Oh (2012) (see references) and was first implement
+The algorithm is based on ideas from Park and Oh (2012). A first implementation in JavaScript was
+proposed by Vladimir Agafonkin in \href{https://github.com/mapbox/concaveman}{mapbox}. This
+implementation dramatically improved performance over the one stated in the paper using a spatial
+index. The algorithm was then ported to R by Joël Gombin in the R package
+\href{https://github.com/joelgombin/concaveman}{concaveman} that runs the JavaScript implemetation
+proposed by Vladimir Agafonkin. Later a C++ version of Vladimir Agafonkin's JavaScript implementation
+was proposed by Stanislaw Adaszewski in \href{https://github.com/sadaszewski/concaveman-cpp}{concaveman-cpp}.
+The concaveman function in RcppConcaveman package wraps the Stanislaw Adaszewski's C++ code making
+the concaveman algorithm an order of magnitude (up to 50 times) faster than the Javascript version.
 }
 \examples{
 data(points)
