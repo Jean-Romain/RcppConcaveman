@@ -10,7 +10,7 @@ The algorithm was then ported to R by Joël Gombin in the package [concaveman](h
 
 Later a C++ version of Vladimir Agafonkin's JavaScript implementation was proposed by Stanislaw Adaszewski in [concaveman-cpp](https://github.com/sadaszewski/concaveman-cpp).
 
-The `RcppConcaveman` package wraps the Stanislaw Adaszewski's C++ code making the concaveman algorithm an order of magnitude faster than the Javascript version. Moreover the package is a dependency free (it depends only on `Rcpp`).
+The `RcppConcaveman` package wraps the Stanislaw Adaszewski's C++ code making the concaveman algorithm an order of magnitude faster than the Javascript version.
 
 ## Example
 
